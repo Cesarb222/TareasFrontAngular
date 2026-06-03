@@ -1,6 +1,5 @@
 {
-    "outputDirectory": "dist/ctaskFront",
-    "rewrites": [
-        { "source": "/(.*)", "destination": "/index.html" }
+    "routes": [
+        { "src": "/[^.]+", "dest": "/", "status": 200 }
     ]
 }
