@@ -10,7 +10,7 @@ import { Tareas } from './components/tareas/tareas';
 export const routes: Routes = [
     {path:'auth/login',component:Login},
     {path:'auth/register',component:Register},
-    { path: '', component:Home, canActivate:[authGuard] },
+    { path: '', component:Home },
     {path:"chat/:userId",component: Chat},
     {path:"dashboard",component: Dashboard},
     {path:"tareas/tarea/:id", loadComponent:()=> import("./components/tareas/tarea/tarea").then(m => m.Tarea)},

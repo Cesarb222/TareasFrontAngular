@@ -16,7 +16,7 @@ export class ProyectoService {
     
   }
 
-  private baseUrl = 'https://tareasback.up.railway.app/'
+  private baseUrl = 'https://tareasback.up.railway.app'
   getUsuariosProyect(proyecto:Proyecto):Observable<Usuario[]>{
     return this.http.get<Usuario[]>(`${this.baseUrl}/mp/userproyect/${proyecto.id}`)
   }

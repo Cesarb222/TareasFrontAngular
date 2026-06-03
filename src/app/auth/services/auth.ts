@@ -32,7 +32,6 @@ export class Auth {
   //comprobamos la expiracion del token
   isLoggedIn(): boolean {
     const token = localStorage.getItem("tjwt")
-    console.log(token)
     if(!token) return false
 
     const payload = JSON.parse(atob(token.split('.')[1]));
