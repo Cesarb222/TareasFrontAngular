@@ -1,0 +1,233 @@
+<main class="flex" id="info">
+    <!-- Escuchamos los eventos  -->
+    <app-sidebar (abrirPopup)="popupform = true; popupUsuario=false" (abrirPopupUsuario)="popupUsuario = true;popupform = false" />
+    <div class="ms-10 prueba">
+        <section>
+            <h1 class="text-white">¡Hola {{username}}!</h1>
+            <p class="text-gray-300" >Aquí tienes un resumen de tus tareas</p>
+        </section>
+        <section class="mt-12 flex gap-5 flex-wrap my-0 mx-auto">
+            <div class="bg-[#161616] py-5 px-5 rounded-2xl">
+                <p class="text-white text-xl">Pendientes</p>
+                <div class="flex gap-10 mt-5">
+                    <h2 class="text-white font-bold text-4xl">{{objecto.pendientes}}</h2>
+                    <div class="bg-[#efad2030] px-2 py-1 border mask-radial-from-1.5 rounded-xl">
+                        <img src="/task.svg" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-[#161616] py-5 px-5 rounded-2xl">
+                <p class="text-white text-xl">Completadas hoy</p>
+                <div class="flex gap-10 mt-5">
+                    <h2 class="text-white font-bold text-4xl">{{objecto.completadasHoy}}</h2>
+                    <div class="bg-[#7def2030] px-2 py-1 border mask-radial-from-1.5 rounded-xl">
+                        <img src="/check.svg" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="bg-[#161616] py-5 px-5 rounded-2xl">
+                <p class="text-[#84c7fb] text-xl">Proximas</p>
+                <div class="flex gap-10 mt-5">
+                    <h2 class="text-[#84c7fb] font-bold text-4xl">{{objecto.proximas}}</h2>
+                    <div class="bg-[#efad2030] px-2 py-1 border mask-radial-from-1.5 rounded-xl">
+                        <img src="/calendar.svg" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="bg-[#161616] py-5 px-5 rounded-2xl">
+                <p class="text-[#ff624f] text-xl">Vencidas</p>
+                <div class="flex gap-10 mt-5">
+                    <h2 class="text-[#ff624f] font-bold text-4xl">{{objecto.vencidas}}</h2>
+                    <div class="bg-[#ef3f2030] px-2 py-1 border mask-radial-from-1.5 rounded-xl">
+                        <img src="/warning.svg" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-10 ">
+            <h1 class="text-white text-2xl">{{username}} estas son tus tareas recientes</h1>
+            <div class="px-5 mt-5 mb-15">
+                <app-table-task [tareaslist]="tareaslist" [pagination]="false" [estilos]="{ height: '400px', width: 'auto' }"></app-table-task>
+            </div>
+        </section>
+    </div>
+
+   @if (popupform) {
+    <div class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
+         (click)="popupform = false">
+
+        <div class="bg-[#252524] border border-[#C58702] rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+             (click)="$event.stopPropagation()">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between px-5 py-4 border-b border-[#3a3a38]">
+                <div>
+                    <h2 class="text-[#C58702] font-medium text-base">Nuevo proyecto</h2>
+                    <p class="text-xs text-[#888] mt-0.5">Completa los datos del proyecto</p>
+                </div>
+                <button (click)="popupform = false"
+                    class="border border-[#3a3a38] rounded-md p-1.5 text-[#888] hover:border-[#C58702] hover:text-[#C58702] cursor-pointer">
+                    <i class="ti ti-x text-base"></i>
+                </button>
+            </div>
+
+            <!-- Form -->
+            <form method="post" (submit)="addProyecto($event)" class="flex flex-col gap-5 p-5">
+
+                <!-- Nombre -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[11px] font-medium uppercase tracking-wide text-[#C58702]" for="nombre">
+                        Nombre del proyecto
+                    </label>
+                    <input type="text" name="nombre" id="nombre" required placeholder="Ej: Saneamiento"
+                        class="w-full px-3 h-10 rounded-lg border border-[#3a3a38] bg-[#2a2a28] text-white text-sm placeholder-[#555] outline-none focus:border-[#C58702] focus:ring-2 focus:ring-[#C58702]/25" />
+                </div>
+
+                <!-- Descripción -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[11px] font-medium uppercase tracking-wide text-[#C58702]">
+                        Descripción
+                    </label>
+                    <div class="rounded-lg border border-[#3a3a38] overflow-hidden">
+                        <p-editor [(ngModel)]="text" name="descripcion"
+                            [style]="{ height: '150px', background: '#2a2a28', color: '#fff' }" />
+                    </div>
+                </div>
+
+                <!-- Imagen -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[11px] font-medium uppercase tracking-wide text-[#C58702]">
+                        Imagen del proyecto
+                    </label>
+
+                    @if (fotoBase64 != "") {
+                        <div class="relative">
+                            <img [src]="fotoBase64" alt="preview"
+                                class="w-full h-36 object-cover rounded-lg border border-[#C58702]" />
+                            <button type="button" (click)="fotoBase64 = ''"
+                                class="absolute top-2 right-2 bg-[#1f1f1e]/80 border border-[#3a3a38] rounded-md p-1 text-[#888] hover:text-[#C58702] cursor-pointer">
+                                <i class="ti ti-x text-sm"></i>
+                            </button>
+                        </div>
+                    } @else {
+                        <label for="imgFoto"
+                            class="flex flex-col items-center justify-center gap-2 h-28 rounded-lg border border-dashed border-[#3a3a38] bg-[#2a2a28] cursor-pointer hover:border-[#C58702] transition-colors">
+                            <i class="ti ti-photo-up text-2xl text-[#555]"></i>
+                            <span class="text-xs text-[#555]">Haz clic para seleccionar una imagen</span>
+                        </label>
+                    }
+
+                    <input type="file" (change)="onFileSelected($event,'proyecto')" #fileInput
+                        accept="image/*" name="imgFoto" id="imgFoto" class="hidden" />
+                </div>
+
+                <!-- Botones -->
+                <div class="flex gap-3 pt-1">
+                    <button type="submit"
+                        class="flex-1 h-10 bg-[#C58702] text-[#1f1f1e] rounded-lg text-sm font-medium hover:bg-[#DE9902] cursor-pointer transition-colors">
+                        Crear proyecto
+                    </button>
+                    <button type="button" (click)="popupform = false"
+                        class="flex-1 h-10 border border-[#3a3a38] text-[#ccc] rounded-lg text-sm hover:border-[#C58702] hover:text-[#C58702] cursor-pointer transition-colors">
+                        Cancelar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+}
+    
+
+
+@if (popupUsuario && usuario != null) {
+    <div class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
+         (click)="popupUsuario = false;">
+
+        <div class="bg-[#252524] border border-[#C58702] rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+             (click)="$event.stopPropagation()">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between px-5 py-4 border-b border-[#3a3a38]">
+                <div>
+                    <h2 class="text-[#C58702] font-medium text-base">Actualizar Usuario</h2>
+                    <p class="text-xs text-[#888] mt-0.5">Completa los datos del usuario validos</p>
+                </div>
+                <button (click)="popupUsuario = false"
+                    class="border border-[#3a3a38] rounded-md p-1.5 text-[#888] hover:border-[#C58702] hover:text-[#C58702] cursor-pointer">
+                    <i class="ti ti-x text-base"></i>
+                </button>
+            </div>
+
+            <!-- Form -->
+            <form method="post" (submit)="editUsuario($event)" class="flex flex-col gap-5 p-5">
+
+                <!-- Nombre -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[11px] font-medium uppercase tracking-wide text-[#C58702]" for="nombre">
+                        Nombre de Usuario
+                    </label>
+                    <input type="text" name="nombreUsuario" id="nombreUsuario" required placeholder="Ej: Saneamiento" [value]="usuario.nombreUsuario" readonly
+                        class="w-full px-3 h-10 rounded-lg border border-[#3a3a38] bg-[#2a2a28] text-white text-sm placeholder-[#555] outline-none focus:border-[#C58702] focus:ring-2 focus:ring-[#C58702]/25" />
+                </div>
+
+                <!-- Descripción -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[11px] font-medium uppercase tracking-wide text-[#C58702]">
+                        Email
+                    </label>
+                    <input type="text" name="email" id="email" required placeholder="Ej: Saneamiento" [value]="usuario.email" readonly
+                        class="w-full px-3 h-10 rounded-lg border border-[#3a3a38] bg-[#2a2a28] text-white text-sm placeholder-[#555] outline-none focus:border-[#C58702] focus:ring-2 focus:ring-[#C58702]/25" />
+                
+                </div>
+
+                <!-- Imagen -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[11px] font-medium uppercase tracking-wide text-[#C58702]">
+                        Imagen del Usuario
+                    </label>
+
+                    @if (fotoBase64Usuario != "") {
+                        <div class="relative">
+                            <img [src]="fotoBase64Usuario" alt="preview"
+                                class="w-full h-36 object-cover rounded-lg border border-[#C58702]" />
+                            <button type="button" (click)="fotoBase64Usuario = ''"
+                                class="absolute top-2 right-2 bg-[#1f1f1e]/80 border border-[#3a3a38] rounded-md p-1 text-[#888] hover:text-[#C58702] cursor-pointer">
+                                <i class="ti ti-x text-sm"></i>
+                            </button>
+                        </div>
+                    } @else {
+                        <label for="imgFoto"
+                            class="flex flex-col items-center justify-center gap-2 h-28 rounded-lg border border-dashed border-[#3a3a38] bg-[#2a2a28] cursor-pointer hover:border-[#C58702] transition-colors">
+                            <i class="ti ti-photo-up text-2xl text-[#555]"></i>
+                            <span class="text-xs text-[#555]">Haz clic para seleccionar una imagen</span>
+                        </label>
+                    }
+
+                    <input type="file" (change)="onFileSelected($event,'usuario')" #fileInput
+                        accept="image/*" name="imgFoto" id="imgFoto" class="hidden" />
+                </div>
+
+                <!-- Botones -->
+                <div class="flex gap-3 pt-1">
+                    <button type="submit"
+                        class="flex-1 h-10 bg-[#C58702] text-[#1f1f1e] rounded-lg text-sm font-medium hover:bg-[#DE9902] cursor-pointer transition-colors">
+                        Guardar Cambios
+                    </button>
+                    <button type="button" (click)="popupUsuario = false"
+                        class="flex-1 h-10 border border-[#3a3a38] text-[#ccc] rounded-lg text-sm hover:border-[#C58702] hover:text-[#C58702] cursor-pointer transition-colors">
+                        Cancelar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+}
+</main>

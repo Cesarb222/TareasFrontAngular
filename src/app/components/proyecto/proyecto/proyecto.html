@@ -1,0 +1,208 @@
+@if (proyecto != null) {
+<div class="bg-[#1f1f1e] min-h-screen text-white">
+
+  <div class="flex items-center gap-4 px-5 py-5 border-b border-[#3a3a38]">
+  
+  @if (proyecto.foto) {
+    <img [src]="proyecto.foto" class="w-24 h-24 imgLoca rounded-xl object-cover border border-[#3a3a38] flex-shrink-0" />
+  } @else {
+    <div class="w-16 h-16 rounded-xl bg-[#C58702] text-[#1f1f1e] text-2xl font-medium flex items-center justify-center flex-shrink-0">
+      {{ proyecto.nombre[0].toUpperCase() }}
+    </div>
+  }
+
+  <div class="flex-1">
+    <p class="text-[11px] font-medium uppercase tracking-wide text-[#C58702] mb-3">Proyecto</p>
+    <h1 class="text-xl font-medium">{{ proyecto.nombre }}</h1>
+  </div>
+
+  <button title="Editar" (click)="popupform = !popupform" class="cursor-pointer "><i class="ti ti-settings-cog"></i></button>
+  <button title="Editar" (click)="compartirProyecto($event)" class="cursor-pointer "><i class="ti ti-share"></i></button>
+</div>
+  <!-- Body -->
+  <div class="p-5 grid grid-cols-1 md:grid-cols-[1fr_220px] gap-5">
+
+    <!-- Columna principal -->
+    <div class="flex flex-col gap-4">
+
+      <!-- Descripción -->
+      <div class="bg-[#252524] border border-[#3a3a38] rounded-xl p-4">
+        <p class="text-[11px] font-medium uppercase tracking-wide text-[#C58702] mb-3">Descripción</p>
+        <div class="text-sm leading-relaxed" [innerHTML]="proyecto.descripcion"></div>
+      </div>
+
+      <!-- Estadísticas -->
+      <div class="bg-[#252524] border border-[#3a3a38] rounded-xl p-4">
+        <p class="text-[11px] font-medium uppercase tracking-wide text-[#C58702] mb-3">Progreso general</p>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="bg-[#2a2a28] rounded-lg p-3 text-center">
+            <p class="text-2xl font-medium text-[#C58702]">{{objetoTareas.tTotales}}</p>
+            <p class="text-[11px] text-[#888] mt-1">Tareas totales</p>
+          </div>
+          <div class="bg-[#2a2a28] rounded-lg p-3 text-center">
+            <p class="text-2xl font-medium text-[#C58702]">{{objetoTareas.tCompletadas}}</p>
+            <p class="text-[11px] text-[#888] mt-1">Completadas</p>
+          </div>
+          <div class="bg-[#2a2a28] rounded-lg p-3 text-center">
+            <p class="text-2xl font-medium text-[#C58702]">{{objetoTareas.tCurso}}</p>
+            <p class="text-[11px] text-[#888] mt-1">En curso</p>
+          </div>
+          <div class="bg-[#2a2a28] rounded-lg p-3 text-center">
+            <p class="text-2xl font-medium text-[#C58702]">{{objetoTareas.tPendientes}}</p>
+            <p class="text-[11px] text-[#888] mt-1">Pendientes</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar derecho -->
+    <div class="flex flex-col gap-4">
+
+      <!-- Detalles -->
+      <div class="bg-[#252524] border border-[#3a3a38] rounded-xl p-4">
+        <p class="text-[11px] font-medium uppercase tracking-wide text-[#C58702] mb-3">Detalles</p>
+        <div class="flex items-center justify-between py-1.5 border-b border-[#2e2e2c] text-xs">
+          <span class="text-[#888]">Creado por</span>
+          <span class="font-medium">{{ proyecto.propietario.nombreUsuario }}</span>
+        </div>
+        <div class="flex items-center justify-between py-1.5 text-xs">
+          <span class="text-[#888]">Fecha</span>
+          <span class="font-medium">{{ proyecto.fechaCreacion | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+
+      <!-- Equipo estilo Discord -->
+      <div class="bg-[#252524] border border-[#3a3a38] rounded-xl p-4">
+        <p class="text-[11px] font-medium uppercase tracking-wide text-[#C58702] mb-3">
+          <i class="ti ti-users text-xs mr-1" aria-hidden="true"></i>Equipo
+        </p>
+
+        <!-- Propietario -->
+        <p class="text-[10px] uppercase tracking-widest text-[#555] mb-2">Propietario</p>
+        <div class="flex items-center gap-2.5 mb-3">
+          <div class="relative">
+            <div class="w-8 h-8 rounded-full bg-[#C58702] text-[#1f1f1e] text-xs font-medium flex items-center justify-center flex-shrink-0">
+              {{ proyecto.propietario.nombreUsuario[0].toUpperCase() }}
+            </div>
+          </div>
+          <div>
+            <p class="text-sm text-white">{{ proyecto.propietario.nombreUsuario }}</p>
+            <p class="text-[11px] text-[#888]">{{ proyecto.propietario.email }}</p>
+          </div>
+        </div>
+
+        <!-- Miembros -->
+        <p class="text-[10px] uppercase tracking-widest text-[#555] mb-2">Miembros</p>
+        @for (miembro of usuarios; track $index) {
+          
+            <div class="flex items-center gap-2.5 py-1.5 border-b border-[#2e2e2c] last:border-0">
+              <div class="relative">
+                @if (miembro.foto != null) {
+                  <img [src]="miembro.foto" class="w-8 h-8 rounded-xl object-cover border border-[#3a3a38] flex-shrink-0" />
+                } @else {
+                  <div class="w-8 h-8 rounded-full bg-[#C58702] text-[#1f1f1e] text-xs font-medium flex items-center justify-center flex-shrink-0">
+                    {{ miembro.nameUser[0].toUpperCase() }}
+                  </div>
+                }
+              </div>
+              <div>
+                <p class="text-sm text-white">{{ miembro.nameUser }}</p>
+                <p class="text-[11px] text-[#888]">{{ miembro.email }}</p>
+              </div>
+            </div>
+          }
+        
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+@if (popupform) {
+    <div class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
+         (click)="popupform = false">
+
+        <div class="bg-[#252524] border border-[#C58702] rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+             (click)="$event.stopPropagation()">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between px-5 py-4 border-b border-[#3a3a38]">
+                <div>
+                    <h2 class="text-[#C58702] font-medium text-base">Editar proyecto</h2>
+                    <p class="text-xs text-[#888] mt-0.5">Completa los datos del proyecto</p>
+                </div>
+                <button (click)="popupform = false"
+                    class="border border-[#3a3a38] rounded-md p-1.5 text-[#888] hover:border-[#C58702] hover:text-[#C58702] cursor-pointer">
+                    <i class="ti ti-x text-base"></i>
+                </button>
+            </div>
+
+            <!-- Form -->
+            <form method="post" (submit)="addProyecto($event)" class="flex flex-col gap-5 p-5">
+
+                <!-- Nombre -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[11px] font-medium uppercase tracking-wide text-[#C58702]" for="nombre">
+                        Nombre del proyecto
+                    </label>
+                    <input type="text" name="nombre" id="nombre" [value]="proyecto.nombre" required placeholder="Ej: Saneamiento"
+                        class="w-full px-3 h-10 rounded-lg border border-[#3a3a38] bg-[#2a2a28] text-white text-sm placeholder-[#555] outline-none focus:border-[#C58702] focus:ring-2 focus:ring-[#C58702]/25" />
+                </div>
+
+                <!-- Descripción -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[11px] font-medium uppercase tracking-wide text-[#C58702]">
+                        Descripción
+                    </label>
+                    <div class="rounded-lg border border-[#3a3a38] overflow-hidden">
+                        <p-editor [(ngModel)]="text" name="descripcion"
+                            [style]="{ height: '150px', background: '#2a2a28', color: '#fff' }" />
+                    </div>
+                </div>
+
+                <!-- Imagen -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[11px] font-medium uppercase tracking-wide text-[#C58702]">
+                        Imagen del proyecto
+                    </label>
+
+                    @if (fotoBase64 != "") {
+                        <div class="relative">
+                            <img [src]="fotoBase64" alt="preview"
+                                class="w-full h-36 object-cover rounded-lg border border-[#C58702]" />
+                            <button type="button" (click)="fotoBase64 = ''"
+                                class="absolute top-2 right-2 bg-[#1f1f1e]/80 border border-[#3a3a38] rounded-md p-1 text-[#888] hover:text-[#C58702] cursor-pointer">
+                                <i class="ti ti-x text-sm"></i>
+                            </button>
+                        </div>
+                    } @else {
+                        <label for="imgFoto"
+                            class="flex flex-col items-center justify-center gap-2 h-28 rounded-lg border border-dashed border-[#3a3a38] bg-[#2a2a28] cursor-pointer hover:border-[#C58702] transition-colors">
+                            <i class="ti ti-photo-up text-2xl text-[#555]"></i>
+                            <span class="text-xs text-[#555]">Haz clic para seleccionar una imagen</span>
+                        </label>
+                    }
+
+                    <input type="file" (change)="onFileSelected($event)" #fileInput
+                        accept="image/*" name="imgFoto" id="imgFoto" class="hidden" />
+                </div>
+
+                <!-- Botones -->
+                <div class="flex gap-3 pt-1">
+                    <button type="submit"
+                        class="flex-1 h-10 bg-[#C58702] text-[#1f1f1e] rounded-lg text-sm font-medium hover:bg-[#DE9902] cursor-pointer transition-colors">
+                        Guardar proyecto
+                    </button>
+                    <button type="button" (click)="popupform = false"
+                        class="flex-1 h-10 border border-[#3a3a38] text-[#ccc] rounded-lg text-sm hover:border-[#C58702] hover:text-[#C58702] cursor-pointer transition-colors">
+                        Cancelar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+}
+}

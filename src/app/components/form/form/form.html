@@ -1,0 +1,39 @@
+@if(formulario!=null){
+    <form (submit)="formulario.submit($event)" [method]="formulario.method">
+        @if (formulario.fields.length>0) {
+            @for (item of formulario.fields; track $index) {
+                <label [for]="item.idInput">{{item.label}}</label>
+                @if (item.tipoCampo == 'select' && item.listSelect?.length>0) {
+                    <select [name]="item.idInput" [id]="item.idInput" [required]="item.required">
+                        @for (opt of item.listSelect; track $index) {
+                            <option [value]="opt.key" [selected]="opt.key.toLowerCase() === item.selected?.toLowerCase()">{{opt.value}} </option>
+                        }
+                    </select>
+                }@else if (item.tipoCampo == 'textarea') {
+                        <textarea 
+                        [id]="item.idInput"
+                        [name]="item.idInput"
+                        [required]="item.required" 
+                        [placeholder]="item.placeholder"
+                        [defaultValue]="item.valueDefault ?? ''"
+                        [attr.readOnly]="item.readOnly"></textarea>
+                }
+                @else{
+                    <input [type]="item.tipoCampo"
+                        [name]="item.idInput" 
+                        [id]="item.idInput"
+                        [required]="item.required" 
+                        [placeholder]="item.placeholder"
+                        [defaultValue]="item.valueDefault ?? ''"
+                        [attr.readonly]="item.readonly ? true : null">
+                }
+            }
+            <div class="botones">
+                <button type="submit">ENVIAR</button>
+                @if(formulario.buttonCancelar){
+                    <button type="button">CANCELAR</button>
+                }
+            </div>
+        }
+    </form>
+}

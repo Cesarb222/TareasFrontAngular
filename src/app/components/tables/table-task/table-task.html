@@ -1,0 +1,15 @@
+
+    <ag-grid-angular 
+    [ngStyle]="estilos"
+    [rowData]="rowData" 
+    [columnDefs]="colDefsList"
+    rowDragEntireRow="false",
+    [theme]="theme"
+    (rowClicked)="clickrow($event)"
+    [pagination]="pagination"
+    [paginationPageSize]="10"
+    [paginationPageSizeSelector]="[10, 25, 50]",
+    [autoSizeStrategy]="autoSizeStrategy">
+
+    </ag-grid-angular>
+

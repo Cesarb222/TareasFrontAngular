@@ -1,0 +1,27 @@
+
+<section class="px-5 pt-10 pb-15">
+    <div class="flex justify-between bg-[#252524] py-6 px-7 rounded-2xl border border-[#3b3b3b]">
+        @if (mode == 'usuario') {
+            <h1 class="text-white text-2xl py-5 font-bold p-0">Mis tareas asignadas son: {{tareasEmail}}</h1>
+        }@else {
+            
+            <h1 class="text-white text-xl sm:text-xl lg:text-xl font-bold leading-tight p-0">Existen {{tareasEmail}} tareas asignadas para este proyecto</h1>
+            <a [routerLink]="['/tareas/agregar',proyecto.id]"
+                class="py-2 h-10 px-3.5 text-sm rounded-md font-semibold cursor-pointer 
+                text-white border border-[#C58702]  hover:bg-[#C58702] transition-all 
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+            Nuevo
+            </a>
+        }
+    </div>
+    <div class="w-[80%] mx-auto">
+        
+    @if (tareasEmail>0) 
+    {
+        <div class="px-5 mt-5 mx-auto">
+            <app-table-task [tareaslist]="tareaslist" [pagination]="true" [estilos]="{ height: '600px', width: '90%' }"></app-table-task>
+        </div>
+    }
+    </div>
+
+</section>

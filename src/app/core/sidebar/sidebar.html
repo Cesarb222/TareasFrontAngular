@@ -1,0 +1,74 @@
+<aside [class]="collapsed ? 'sidebar collapsed' : 'sidebar'">
+
+    <!-- Header -->
+    <div class="sb-header">
+        <div class="sb-logo">
+            <div class="sb-logo-icon"><img src="/logo.png" alt="" srcset=""></div>
+            <span class="sb-logo-text">CTask</span>
+        </div>
+        <button class="sb-toggle" (click)="updateSidebar()">
+            <i [class]="collapsed ? 'ti ti-layout-sidebar-left-expand' : 'ti ti-layout-sidebar-left-collapse'"></i>
+        </button>
+    </div>
+
+
+    <!-- Nav items -->
+    <div class="sb-section">
+        <p class="sb-section-label">General</p>
+        <a routerLink="/dashboard" routerLinkActive="active" class="sb-item">
+            <i class="ti ti-layout-dashboard"></i>
+            <span class="sb-item-text">Dashboard</span>
+        </a>
+        <a [routerLink]="['/tareas']" [queryParams]="{ mode: 'usuario' }" routerLinkActive="active" class="sb-item">
+            <i class="ti ti-list-check"></i>
+            <span class="sb-item-text">Tareas</span>
+        </a>
+        <div>
+            <a class="sb-item" (click)="mostrarProyectos()">
+                <i class="ti ti-folder"></i>
+                <span class="sb-item-text">Proyectos</span>
+            </a>
+
+            @if (!proyectosColapsed) {
+                <a class="sb-item ms-2 flex justify-between" (click)="crearProyectos()">
+                    <span class="sb-item-text">Nuevo proyecto</span>
+                    <i class="ti ti-plus"></i>
+                </a>
+
+                @for (item of proyectosUsuario; track $index) {
+                    <a [routerLink]="'/proyecto/' + item.id" class="sb-item ms-2">
+                        @if (item.foto!=null) {
+                            <img [src]="item.foto" alt="" srcset="" class="rounded-2xl w-9 h-9">
+                        }@else {
+                            <span class="rounded-4xl text-center pt-0.5 text-black text-xl bg-[#c58702] w-9 h-9">{{item.nombre[0].toUpperCase()}}</span>
+                        }
+                        
+                        <span class="sb-item-text">{{item.nombre}}</span>
+                    </a>
+                }
+            }
+        </div>
+    </div>
+
+    <!-- Footer usuario -->
+    <div class="sb-footer">
+        <div class="sb-user">
+            @if (usuario.foto) {
+                <img [src]="usuario.foto"
+                    class="w-7 h-7 imgLoca rounded-3xl object-cover border border-[#3a3a38] flex-shrink-0" />
+                } @else {
+                <div
+                    class="w-7 h-7 rounded-3xl bg-[#C58702] text-[#1f1f1e] text-2xl font-medium flex items-center justify-center flex-shrink-0">
+                    {{ usuario.nombreUsuario[0].toUpperCase() }}
+                </div>
+                }
+            <div class="sb-user-info flex justify-around w-100">
+                <p class="sb-user-name">{{ nameUser }}</p>
+                <button type="button" class="mt-0.5" (click)="abrirUserPopUp()"> <i class="ti ti-settings"></i></button>
+            </div>
+        </div>
+    </div>
+
+    
+</aside>
+

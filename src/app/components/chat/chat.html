@@ -1,0 +1,31 @@
+<section class="chat-wrap mx-1.5  mt-5 ">
+    <div class="chat-messages">
+        <ul>
+            <li *ngFor="let item of messageList" class="msg-row" [ngClass]="item.message_side">
+                @if (item.message_side === 'receiver') {
+                    <span class="msg-name">
+                    {{ item.usuario.nombreUsuario }}
+                </span>
+                }
+                
+                <div class="msg-bubble" [innerHTML]="item.contenido"></div>
+                <span class="msg-time">{{ item.fechaCreacion | date:'HH:mm' }}</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="chat-input-area flex">
+        <input class="chat-input" type="text" placeholder="Mensaje..." [(ngModel)]="messageInput"
+            (keydown.enter)="sendMessage()"> 
+    
+        <!-- <div class="w-auto">
+            <p-editor [(ngModel)]="messageInput" name="descripcion" 
+            (keydown.enter)="sendMessage()" [style]="{width: '100%'}"
+            
+            /> -->
+        
+        <button class="send-btn" type="button" (click)="sendMessage()">
+            <i class="ti ti-send"></i>
+        </button>
+    </div>
+</section>

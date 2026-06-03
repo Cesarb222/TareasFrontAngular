@@ -1,0 +1,64 @@
+<div class="flex">
+    <aside [class]="collapsed ? 'sidebar collapsed' : 'sidebar'">
+
+
+        <!-- Header -->
+        <div class="sb-header">
+            <div class="sb-logo">
+                <div class="sb-logo-icon"><img src="/logo.png" alt="" srcset=""></div>
+                <span class="sb-logo-text">CTask</span>
+            </div>
+            <button class="sb-toggle" (click)="updateSidebar()">
+                <i [class]="collapsed ? 'ti ti-layout-sidebar-left-expand' : 'ti ti-layout-sidebar-left-collapse'"></i>
+            </button>
+        </div>
+
+
+        <!-- Nav items -->
+        <div class="sb-section">
+            <div class="flex gap-3 mt-3">
+                @if (proyecto.foto) {
+                <img [src]="proyecto.foto"
+                    class="w-9 h-9 imgLoca rounded-3xl object-cover border border-[#3a3a38] flex-shrink-0" />
+                } @else {
+                <div
+                    class="w-9 h-9 rounded-3xl bg-[#C58702] text-[#1f1f1e] text-2xl font-medium flex items-center justify-center flex-shrink-0">
+                    {{ proyecto.nombre[0].toUpperCase() }}
+                </div>
+                }
+                <p class="mt-2  text-[20px] text-center italic uppercase tracking-wide font-semibold text-[#C58702]">{{proyecto.nombre}}</p>
+            </div>
+            
+            <p class="sb-section-label">General</p>
+            <a [routerLink]="['/tareas']" [queryParams]="{ mode: proyecto.id}" routerLinkActive="active" class="sb-item">
+                <i class="ti ti-list-check"></i>
+                <span class="sb-item-text">Tareas</span>
+            </a>
+            <a routerLink="." routerLinkActive="active" class="sb-item">
+                <i class="ti ti-list-check"></i>
+                <span class="sb-item-text">Tareas</span>
+            </a>
+            <div>
+                <a class="sb-item" routerLinkActive="active" routerLink="chat">
+                    <i class="ti ti-message"></i>
+                    <span class="sb-item-text">Chat</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer usuario -->
+        <div class="sb-footer">
+            <div class="sb-user">
+                <div class="sb-avatar">{{ letrasAvatar }}</div>
+                <div class="sb-user-info">
+                    <p class="sb-user-name">{{ nameUser }}</p>
+                </div>
+            </div>
+        </div>
+
+
+    </aside>
+    <main class="flex-1" style="margin-left: 52px; transition: margin-left 0.25s ease;">
+        <router-outlet />
+    </main>
+</div>

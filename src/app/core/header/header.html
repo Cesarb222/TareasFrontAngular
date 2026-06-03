@@ -1,0 +1,83 @@
+<header class="sticky">
+    <!-- topbar -->
+
+    <nav class="flex py-2 px-4 md:px-8 bg-[#1f1f1e] border-b min-h-[68px] fixed relative z-20 shadow shadow-[#C58702] text-center"
+        aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 w-full">
+            <a routerLink=""
+                class="min-w-9 inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">
+                <span class="sr-only">Your Company</span>
+                <img src="/logo.png" alt="readymadeui logo" class="h-20 w-auto p-0 m-0" />
+            </a>
+
+            <div id="collapseMenu" [class.hidden]="!menuOpen" tabindex="-1"
+                class="hidden lg:block max-lg:bg-[#1f1f1e] max-lg:border-l max-lg:border-slate-300 max-lg:w-1/2 max-lg:fixed max-lg:top-0 max-lg:right-0 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto max-sm:w-full z-50 outline-none">
+
+                <div
+                    class="py-2 px-4 flex justify-between items-center shadow shadow-[#C58702] sticky top-0 bg-[#1f1f1e] lg:hidden max-lg:min-h-[68px]">
+                    <a href="#"
+                        class="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">
+                        <span class="sr-only">Your Company</span>
+                        <img src="/logo.png" alt="readymadeui logo dialog"
+                            class="h-9 w-auto" />
+                    </a>
+                    <button type="button" aria-controls="collapseMenu" (click)="menu()" id="toggleClose"
+                        class="cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">
+                        <span class="sr-only">Close main menu</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 fill-[#C58702]" aria-hidden="true"
+                            viewBox="0 0 329.269 329">
+                            <path
+                                d="M194.8 164.77 323.013 36.555c8.343-8.34 8.343-21.825 0-30.164-8.34-8.34-21.825-8.34-30.164 0L164.633 134.605 36.422 6.391c-8.344-8.34-21.824-8.34-30.164 0-8.344 8.34-8.344 21.824 0 30.164l128.21 128.215L6.259 292.984c-8.344 8.34-8.344 21.825 0 30.164a21.27 21.27 0 0 0 15.082 6.25c5.46 0 10.922-2.09 15.082-6.25l128.21-128.214 128.216 128.214a21.27 21.27 0 0 0 15.082 6.25c5.46 0 10.922-2.09 15.082-6.25 8.343-8.34 8.343-21.824 0-30.164zm0 0"
+                                data-original="#000000" />
+                        </svg>
+                    </button>
+                </div>
+
+                <ul class=" sm:text-white flex flex-col gap-8 font-semibold text-sm text-[#C58702] lg:flex-row max-lg:p-6">
+                    <li>
+                        <a href=""
+                            class="hover:text-[#C58702] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
+                            aria-current="page">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="hover:text-[#C58702] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">Panel</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="hover:text-[#C58702] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">Acerca de</a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <div>
+                    @if (authService.isLoggedIn()) {
+                        <a routerLink="/auth/login" (click)="authService.logout()"
+                    class="py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer text-white border border-[#C58702]  hover:bg-[#C58702] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">Salir
+                </a>
+                    
+                    }@else{
+                        <a routerLink="/auth/login"
+                    class="py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer text-white border border-[#C58702]  hover:bg-[#C58702] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">Iniciar Sesión</a>
+                    }
+                </div>
+                
+
+                <button type="button" (click)="menu()" aria-controls="collapseMenu" aria-expanded="false" aria-haspopup="true"
+                    id="toggleOpen"
+                    class="cursor-pointer lg:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="size-7 fill-[#C58702]" aria-hidden="true" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+

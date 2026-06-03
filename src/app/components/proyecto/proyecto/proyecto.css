@@ -1,0 +1,41 @@
+#info{
+    background-image: url("/fondo.svg");
+    background-size: contain;
+    background-attachment: fixed;
+}
+
+.prueba{
+    width: 100%;
+}
+.prueba > section{
+    width: 100%;
+    justify-content: space-around;
+}
+
+.tareas{
+    width: 70%;
+}
+
+main, .content {
+  margin-left: 52px; /* cuando collapsed */
+  transition: margin-left 0.25s ease;
+}
+
+.popup{
+    position: absolute;
+    left: 50%;
+    height: 50%;
+}
+
+.inputImagen{
+    display: none;
+}
+
+.imgLoca{
+    transition: all .2s ease-in-out;    
+}
+
+.imgLoca:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
