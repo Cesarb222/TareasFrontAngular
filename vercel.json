@@ -1,4 +1,5 @@
 {
+    "outputDirectory": "dist/ctask-front/browser",
     "rewrites": [
         { "source": "/(.*)", "destination": "/index.html" }
     ]
