@@ -1,5 +1,5 @@
 {
-    "outputDirectory": "dist/ctask-front/browser",
+    "outputDirectory": "dist/ctaskFront",
     "rewrites": [
         { "source": "/(.*)", "destination": "/index.html" }
     ]
