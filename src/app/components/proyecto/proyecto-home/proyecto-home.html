@@ -46,15 +46,22 @@
             </div>
         </div>
 
-        <!-- Footer usuario -->
         <div class="sb-footer">
-            <div class="sb-user">
-                <div class="sb-avatar">{{ letrasAvatar }}</div>
-                <div class="sb-user-info">
-                    <p class="sb-user-name">{{ nameUser }}</p>
+        <div class="sb-user">
+            @if (usuario.foto) {
+                <img [src]="usuario.foto"
+                    class="w-7 h-7 imgLoca rounded-3xl object-cover border border-[#3a3a38] flex-shrink-0" />
+                } @else {
+                <div
+                    class="w-7 h-7 rounded-3xl bg-[#C58702] text-[#1f1f1e] text-2xl font-medium flex items-center justify-center flex-shrink-0">
+                    {{ usuario.nombreUsuario[0].toUpperCase() }}
                 </div>
+                }
+            <div class="sb-user-info flex justify-around w-100">
+                <p class="sb-user-name">{{ nameUser }}</p>
             </div>
         </div>
+    </div>
 
 
     </aside>

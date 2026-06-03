@@ -105,7 +105,7 @@ export class Tarea {
     const confirmado = confirm('Aviso: ¿Estás seguro de que quieres salir sin guardar los cambios? \nlos cambios que tengas se perderan.')
     if(!confirmado) return
     else{
-      this.router.navigate(["tareas"])
+      this.router.navigate(["dashboard"])
     }
   }
 

@@ -97,6 +97,7 @@ onFileSelected(event: Event) {
         }
         this.proyectoService.insertUpdateProyecto(Object.assign({},this.proyecto,proyectoNuevo)).subscribe({
           next: (value)=>{
+            this.popupform = false
             window.location.reload()
           } 
         })

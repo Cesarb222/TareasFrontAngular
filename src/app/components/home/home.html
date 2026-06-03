@@ -1,48 +1,52 @@
 <main id="info" class="z-0">
-    <section class="min-h-screen flex items-center px-3 sm:px-6 lg:px-10" 
+    <section class="min-h-screen flex items-center px-3 sm:px-6 lg:px-10"
     data-aos="fade-down" data-aos-duration="1000" data-aos-delay="300">
 
     <div class="max-w-7xl mx-auto w-full">
+        <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
-        <div class="max-w-2xl">
+            <!-- Texto -->
+            <div class="flex-1 text-center lg:text-left">
+                <div class="bg-[#C58702] rounded-3xl inline-block px-5 py-1 opacity-90 mb-4"
+                    data-aos="fade-right" data-aos-duration="1000" data-aos-delay="600">
+                    <p class="text-sm sm:text-base">Organiza tu día. Alcanza tus metas. Comenta</p>
+                </div>
 
-            <div class="bg-[#C58702] rounded-3xl inline-block px-5 py-1 opacity-90 mb-4"
-                data-aos="fade-right" data-aos-duration="1000" data-aos-delay="600">
-                <p class="text-sm sm:text-base">Organiza tu día. Alcanza tus metas. Comenta</p>
+                <h1 class="text-white text-3xl sm:text-5xl lg:text-6xl font-bold mt-4 leading-tight"
+                    data-aos="fade-down-right" data-aos-duration="1100" data-aos-delay="1200">
+                    Gestiona, prioriza y completa tus
+                    <span class="text-[#C58702]">tareas</span> desde cualquier lugar
+                </h1>
+
+                <p class="text-white text-sm sm:text-base lg:text-lg mt-5 max-w-xl mx-auto lg:mx-0"
+                    data-aos="fade-left" data-aos-duration="1100" data-aos-delay="1200">
+                    Ctask te ayuda a mantener el enfoque, organizar tus tareas y
+                    aumentar tu productividad cada día
+                </p>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <button class="flex items-center justify-center gap-2 bg-[#C58702] px-6 py-3 rounded-md hover:opacity-90 transition" (click)="navigation()">
+                        Comenzar ahora
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                        </svg>
+                    </button>
+
+                    <button class="flex items-center justify-center px-6 py-3 rounded-md text-white border border-[#C58702] 
+                        hover:bg-[#C58702] hover:cursor-pointer transition">
+                        Ver características
+                    </button>
+                </div>
             </div>
 
-            <h1 class="text-white text-3xl sm:text-5xl lg:text-6xl font-bold mt-4 leading-tight"
-                data-aos="fade-down-right" data-aos-duration="1100" data-aos-delay="1200">
-                Gestiona, prioriza y completa tus 
-                <span class="text-[#C58702]">tareas</span> desde cualquier lugar
-            </h1>
-
-            <p class="text-white text-sm sm:text-base lg:text-lg mt-5 max-w-xl"
-                data-aos="fade-left" data-aos-duration="1100" data-aos-delay="1200">
-                Ctask te ayuda a mantener el enfoque, organizar tus tareas y
-                aumentar tu productividad cada día
-            </p>
-
-            <div class="mt-8 flex flex-col sm:flex-row gap-4 sm:gap-6">
-
-                <button class="flex items-center justify-center gap-2 bg-[#C58702] px-6 py-3 rounded-md hover:opacity-90 transition" (click)="navigation()">
-                    Comenzar ahora 
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                    </svg>
-                </button>
-
-                <button class="flex items-center justify-center px-6 py-3 rounded-md text-white border border-[#C58702] 
-                    hover:bg-[#C58702] hover:cursor-pointer transition">
-                    Ver características
-                </button>
-
+            <!-- Imagen -->
+            <div class="flex-1 flex justify-center lg:justify-end">
+                <img src="/fondoInicio.png" alt="" class="w-full max-w-lg rounded-2xl">
             </div>
 
         </div>
-
     </div>
 </section>
 
