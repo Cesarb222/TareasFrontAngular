@@ -1,4 +1,5 @@
 {
+    "outputDirectory": "dist/ctaskFront",
     "routes": [
         { "src": "/[^.]+", "dest": "/", "status": 200 }
     ]
